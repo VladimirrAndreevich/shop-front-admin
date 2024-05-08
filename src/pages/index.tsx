@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import { MainWrapper, MenuItem, MenuList } from "./styled";
+import { MainWrapper, MenuList } from "./styled";
+import ChoiceItem from "@/components/ChoiceItem/ChoiceItem";
 
 export default function Home() {
   return (
@@ -13,8 +13,8 @@ export default function Home() {
       </Head>
       <MainWrapper>
         <MenuList>
-          <MenuItem>Products</MenuItem>
-          <MenuItem>Users</MenuItem>
+          <ChoiceItem linkTo="/products">Products</ChoiceItem>
+          <ChoiceItem linkTo="/users">Users</ChoiceItem>
         </MenuList>
       </MainWrapper>
     </>

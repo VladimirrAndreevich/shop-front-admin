@@ -1,12 +1,14 @@
 import MainContainer from "@/components/MainContainer/MainContainer";
 import colors from "@/consts/colors";
-import { Box, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import Image from "next/image";
 
 const Header: React.FC = () => {
   return (
     <HeaderStyled>
-      <MainContainer sx={{ display: "flex", justifyContent: "center" }}>
+      <MainContainer
+        sx={{ display: "flex", alignItems: "center", columnGap: 2 }}
+      >
         <Image
           src="/icons/logo.svg"
           alt="Shop Logo"
@@ -14,6 +16,7 @@ const Header: React.FC = () => {
           height={27}
           priority
         />
+        <Heading variant="h2">Admin</Heading>
       </MainContainer>
     </HeaderStyled>
   );
@@ -26,4 +29,10 @@ const HeaderStyled = styled(Box)(() => ({
   paddingBottom: "36px",
 
   backgroundColor: colors.primary,
+}));
+
+const Heading = styled(Typography)(() => ({
+  fontSize: "30px",
+  color: "white",
+  fontStyle: "italic",
 }));

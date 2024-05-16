@@ -1,5 +1,15 @@
 import MainContainer from "@/components/MainContainer/MainContainer";
+import {
+  Divider,
+  Grid,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  styled,
+} from "@mui/material";
 import Head from "next/head";
+import AsideMenu from "@/components/AsideMenu/AsideMenu";
 
 export default function Home() {
   return (
@@ -11,7 +21,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <MainContainer>sd</MainContainer>
+        <MainContainer sx={{ py: 5 }}>
+          <Grid container>
+            <Grid item xs={3}>
+              <AsideMenu />
+            </Grid>
+            <Grid item xs={9}></Grid>
+          </Grid>
+        </MainContainer>
       </main>
     </>
   );

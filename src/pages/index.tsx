@@ -1,17 +1,12 @@
 import MainContainer from "@/components/MainContainer/MainContainer";
-import {
-  Divider,
-  Grid,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  styled,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 import Head from "next/head";
 import AsideMenu from "@/components/AsideMenu/AsideMenu";
 
-export default function Home() {
+import { observer } from "mobx-react-lite";
+import AuthGuard from "@/features/AuthGuard";
+
+const HomePage = () => {
   return (
     <>
       <Head>
@@ -21,15 +16,19 @@ export default function Home() {
         <link rel="icon" href="/admin-favicon.svg" />
       </Head>
       <main>
-        <MainContainer sx={{ py: 5 }}>
-          <Grid container>
-            <Grid item xs={3}>
-              <AsideMenu />
+        <AuthGuard>
+          <MainContainer sx={{ py: 5, minHeight: "calc(100vh - 187px)" }}>
+            <Grid container>
+              <Grid item xs={3}>
+                <AsideMenu />
+              </Grid>
+              <Grid item xs={9}></Grid>
             </Grid>
-            <Grid item xs={9}></Grid>
-          </Grid>
-        </MainContainer>
+          </MainContainer>
+        </AuthGuard>
       </main>
     </>
   );
-}
+};
+
+export default observer(HomePage);

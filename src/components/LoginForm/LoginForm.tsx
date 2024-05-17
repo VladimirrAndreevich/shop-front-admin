@@ -3,15 +3,15 @@ import { FormEvent, useState } from "react";
 import LoadingBtn from "../LoadingBtn/LoadingBtn";
 import { I_LoginRes } from "@/types";
 import { useRouter } from "next/router";
+import { getStoreInstance } from "@/store/userStore";
 
 const LoginForm: React.FC = () => {
+  const userStore = getStoreInstance();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  // const userStore = getStoreInstance();
 
   const submitHandler = async () => {
     setIsSubmitting(true);
@@ -50,6 +50,7 @@ const LoginForm: React.FC = () => {
       const formattedRes: I_LoginRes = await response.json();
       if (formattedRes.data.accessToken) {
         localStorage.setItem("token", formattedRes.data.accessToken);
+        userStore.login(localStorage.getItem("token"));
         // userStore.initToken(formattedRes.data.accessToken);
         router.push("/");
       }

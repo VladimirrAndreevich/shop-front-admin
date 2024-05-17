@@ -50,6 +50,12 @@ class UserStore {
     this.token = _token;
     this.checkAuth();
   }
+
+  logout() {
+    localStorage.removeItem("token");
+    this.isLogged = false;
+    this.token = "";
+  }
 }
 
 let userStore: UserStore;

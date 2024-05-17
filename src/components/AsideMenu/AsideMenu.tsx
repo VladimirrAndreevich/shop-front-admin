@@ -1,3 +1,4 @@
+import { getStoreInstance } from "@/store/userStore";
 import {
   ListItemText,
   MenuItem,
@@ -5,15 +6,43 @@ import {
   MenuList,
   styled,
 } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const AsideMenu: React.FC = () => {
   const [activeElement, setActiveElement] = useState(0);
+  const userStore = getStoreInstance();
+  const router = useRouter();
 
   return (
     <aside>
       <MenuList>
-        <MenuItemStyled
+        {[
+          { title: "Products" },
+          { title: "Users" },
+          {
+            title: "Logout",
+            clickHandling: () => {
+              userStore.logout();
+              router.push("/login");
+            },
+          },
+        ].map((item, index) => (
+          <MenuItemStyled
+            key={index}
+            isActive={activeElement === index}
+            onClick={() => {
+              setActiveElement(index);
+              if (item.clickHandling) {
+                item.clickHandling();
+              }
+            }}
+          >
+            <ListItemText inset>{item.title}</ListItemText>
+          </MenuItemStyled>
+        ))}
+        {/* <MenuItemStyled
           isActive={activeElement === 0}
           onClick={() => setActiveElement(0)}
         >
@@ -30,7 +59,7 @@ const AsideMenu: React.FC = () => {
           onClick={() => setActiveElement(2)}
         >
           <ListItemText inset>Logout</ListItemText>
-        </MenuItemStyled>
+        </MenuItemStyled> */}
       </MenuList>
     </aside>
   );
@@ -61,4 +90,4 @@ const MenuItemStyled = styled(MenuItem)<StyledMenuItemProps>(
   })
 );
 
-export default AsideMenu;
+export default observer(AsideMenu);

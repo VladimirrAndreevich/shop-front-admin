@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  env: {
+    API_URL_BACKEND: process.env.REACT_APP_API_URL,
+  },
 };
 
 export default nextConfig;

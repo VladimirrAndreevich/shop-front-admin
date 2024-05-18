@@ -9,59 +9,40 @@ import {
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AsideMenu: React.FC = () => {
-  const [activeElement, setActiveElement] = useState(0);
-  const userStore = getStoreInstance();
   const router = useRouter();
+  const [activeElement, setActiveElement] = useState<number | undefined>(
+    undefined
+  );
+  const userStore = getStoreInstance();
+
+  const menuList = [
+    { title: "Products", href: "/products" },
+    { title: "Users", href: "/users" },
+    {
+      title: "Logout",
+      clickHandling: () => {
+        userStore.logout();
+        router.push("/");
+      },
+    },
+  ];
+
+  useEffect(() => {
+    const currentHref = router.asPath;
+    const index = menuList.findIndex((item) => item.href === currentHref);
+
+    if (index !== -1) {
+      setActiveElement(index);
+    }
+  }, []);
 
   return (
     <aside>
       <MenuList>
-        {/* {[
-          { title: "Products", href: "/products" },
-          { title: "Users", href: "/users" },
-          {
-            title: "Logout",
-            clickHandling: () => {
-              userStore.logout();
-              router.push("/login");
-            },
-          },
-        ].map((item, index) => (
-          <MenuItemStyled
-            key={index}
-            isActive={activeElement === index}
-            onClick={() => {
-              setActiveElement(index);
-              if (item.clickHandling) {
-                item.clickHandling();
-              }
-            }}
-          >
-            {item?.href ? (
-              <Link href={item.href}>
-                <ListItemText inset>{item.title}</ListItemText>
-              </Link>
-            ) : (
-              <ListItemText inset>{item.title}</ListItemText>
-            )}
-          </MenuItemStyled>
-        ))}
-        */}
-
-        {[
-          { title: "Products", href: "/products" },
-          { title: "Users", href: "/users" },
-          {
-            title: "Logout",
-            clickHandling: () => {
-              userStore.logout();
-              router.push("/");
-            },
-          },
-        ].map((item, index) => {
+        {menuList.map((item, index) => {
           const menuItem = (
             <MenuItemStyled
               key={index}

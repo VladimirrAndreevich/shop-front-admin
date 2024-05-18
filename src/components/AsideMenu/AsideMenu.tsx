@@ -7,6 +7,7 @@ import {
   styled,
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -18,9 +19,9 @@ const AsideMenu: React.FC = () => {
   return (
     <aside>
       <MenuList>
-        {[
-          { title: "Products" },
-          { title: "Users" },
+        {/* {[
+          { title: "Products", href: "/products" },
+          { title: "Users", href: "/users" },
           {
             title: "Logout",
             clickHandling: () => {
@@ -39,27 +40,49 @@ const AsideMenu: React.FC = () => {
               }
             }}
           >
-            <ListItemText inset>{item.title}</ListItemText>
+            {item?.href ? (
+              <Link href={item.href}>
+                <ListItemText inset>{item.title}</ListItemText>
+              </Link>
+            ) : (
+              <ListItemText inset>{item.title}</ListItemText>
+            )}
           </MenuItemStyled>
         ))}
-        {/* <MenuItemStyled
-          isActive={activeElement === 0}
-          onClick={() => setActiveElement(0)}
-        >
-          <ListItemText inset>Products</ListItemText>
-        </MenuItemStyled>
-        <MenuItemStyled
-          isActive={activeElement === 1}
-          onClick={() => setActiveElement(1)}
-        >
-          <ListItemText inset>Users</ListItemText>
-        </MenuItemStyled>
-        <MenuItemStyled
-          isActive={activeElement === 2}
-          onClick={() => setActiveElement(2)}
-        >
-          <ListItemText inset>Logout</ListItemText>
-        </MenuItemStyled> */}
+        */}
+
+        {[
+          { title: "Products", href: "/products" },
+          { title: "Users", href: "/users" },
+          {
+            title: "Logout",
+            clickHandling: () => {
+              userStore.logout();
+              router.push("/login");
+            },
+          },
+        ].map((item, index) => {
+          const menuItem = (
+            <MenuItemStyled
+              key={index}
+              isActive={activeElement === index}
+              onClick={() => {
+                setActiveElement(index);
+                if (item.clickHandling) {
+                  item.clickHandling();
+                }
+              }}
+            >
+              <ListItemText inset>{item.title}</ListItemText>
+            </MenuItemStyled>
+          );
+
+          return item?.href ? (
+            <Link href={item.href}>{menuItem}</Link>
+          ) : (
+            menuItem
+          );
+        })}
       </MenuList>
     </aside>
   );

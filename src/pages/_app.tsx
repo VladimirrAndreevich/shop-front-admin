@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  if (router.asPath === "/login") {
+  if (router.asPath === "/") {
     return (
       <>
         <Header />

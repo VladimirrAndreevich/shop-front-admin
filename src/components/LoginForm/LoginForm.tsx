@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
         localStorage.setItem("token", formattedRes.data.accessToken);
         userStore.login(localStorage.getItem("token"));
         // userStore.initToken(formattedRes.data.accessToken);
-        router.push("/");
+        router.push("/products");
       }
     }
 

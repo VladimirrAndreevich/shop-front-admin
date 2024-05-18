@@ -58,7 +58,7 @@ const AsideMenu: React.FC = () => {
             title: "Logout",
             clickHandling: () => {
               userStore.logout();
-              router.push("/login");
+              router.push("/");
             },
           },
         ].map((item, index) => {

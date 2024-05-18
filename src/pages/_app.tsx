@@ -25,7 +25,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <Header />
         <AuthGuard>
           <MainContainer sx={{ py: 5, minHeight: "calc(100vh - 187px)" }}>
-            <Grid container>
+            <Grid container component="main">
               <Grid item xs={3}>
                 <AsideMenu />
               </Grid>
@@ -39,14 +39,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       </>
     );
   }
-
-  // return (
-  //   <>
-  //     <Header />
-  //     <Component {...pageProps} />
-  //     <Footer />
-  //   </>
-  // );
 };
 
 export default observer(App);

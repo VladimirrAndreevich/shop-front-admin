@@ -5,6 +5,7 @@ import AsideMenu from "@/components/AsideMenu/AsideMenu";
 import { observer } from "mobx-react-lite";
 import AuthGuard from "@/features/AuthGuard";
 import Head from "next/head";
+import SectionTitle from "@/components/SectionTitle/SectionTitle";
 
 const UsersPage: React.FC = () => {
   return (
@@ -15,7 +16,9 @@ const UsersPage: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/admin-favicon.svg" />
       </Head>
-      <main>Users</main>
+      <div>
+        <SectionTitle>Users</SectionTitle>
+      </div>
     </>
   );
 };

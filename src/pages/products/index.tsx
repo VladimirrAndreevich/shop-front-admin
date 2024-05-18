@@ -1,3 +1,4 @@
+import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Head from "next/head";
 
 const ProductsPage: React.FC = () => {
@@ -9,7 +10,9 @@ const ProductsPage: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/admin-favicon.svg" />
       </Head>
-      <main>Products</main>
+      <div>
+        <SectionTitle>Products</SectionTitle>
+      </div>
     </>
   );
 };

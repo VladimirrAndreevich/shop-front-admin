@@ -29,7 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               <Grid item xs={3}>
                 <AsideMenu />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={9} p={5}>
                 <Component {...pageProps} />
               </Grid>
             </Grid>

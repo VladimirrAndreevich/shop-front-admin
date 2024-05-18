@@ -24,8 +24,8 @@ const AsideMenu: React.FC = () => {
     {
       title: "Logout",
       clickHandling: () => {
-        userStore.logout();
         router.push("/");
+        userStore.logout();
       },
     },
   ];

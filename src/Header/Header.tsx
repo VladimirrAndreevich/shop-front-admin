@@ -8,11 +8,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 const Header: React.FC = () => {
-  const userStore = getStoreInstance();
-  useEffect(() => {
-    userStore.initToken(localStorage.getItem("token"));
-  }, []);
-
   return (
     <HeaderStyled>
       <MainContainer
@@ -33,7 +28,7 @@ const Header: React.FC = () => {
   );
 };
 
-export default observer(Header);
+export default Header;
 
 const HeaderStyled = styled(Box)(() => ({
   paddingTop: "26px",

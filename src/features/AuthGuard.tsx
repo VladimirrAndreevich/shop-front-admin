@@ -14,10 +14,14 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
+    userStore.initToken(localStorage.getItem("token"));
+  }, []);
+
+  useEffect(() => {
     if (!userStore.isLogged && !userStore.isTryingLogin) {
       router.push("/");
     }
-  }, [router]);
+  }, [router, userStore.isLogged, userStore.isTryingLogin]);
 
   if (!userStore.isLogged && userStore.isTryingLogin) {
     return (

@@ -1,3 +1,4 @@
+import ProductsList from "@/components/ProductsList/ProductsList";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Head from "next/head";
 
@@ -12,6 +13,7 @@ const ProductsPage: React.FC = () => {
       </Head>
       <div>
         <SectionTitle>Products</SectionTitle>
+        <ProductsList />
       </div>
     </>
   );

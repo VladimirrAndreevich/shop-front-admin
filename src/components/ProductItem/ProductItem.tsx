@@ -56,7 +56,7 @@ const ProductItem: React.FC<I_ProductItemProps> = ({ data }) => {
               fontSize: { xs: "16px", sm: "20px", md: "24px" },
             }}
           >
-            {price} €
+            {priceDiscounted ? priceDiscounted : price} €
           </Typography>
           {priceDiscounted && (
             <Typography
@@ -67,7 +67,7 @@ const ProductItem: React.FC<I_ProductItemProps> = ({ data }) => {
                 textDecoration: "line-through",
               }}
             >
-              {priceDiscounted} €
+              {price} €
             </Typography>
           )}
         </Stack>

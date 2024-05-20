@@ -7,6 +7,7 @@ import { DialogContent, DialogContentText, TextField } from "@mui/material";
 import axios from "axios";
 import { I_ProductCard } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
+import { getStoreInstance } from "@/store/userStore";
 
 type EditButtonProps = {
   dataProduct: I_ProductCard;
@@ -18,6 +19,7 @@ const EditProductBtn: React.FC<EditButtonProps> = ({ dataProduct }) => {
   const [titleValue, setTitleValue] = React.useState(dataProduct.title);
   const [priceValue, setPriceValue] = React.useState(dataProduct.price);
   const queryClient = useQueryClient();
+  const userStore = getStoreInstance();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,7 +35,17 @@ const EditProductBtn: React.FC<EditButtonProps> = ({ dataProduct }) => {
       price: priceValue,
     };
 
-    await axios.put(`${process.env.API_URL_BACKEND}/products/${id}`, body);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userStore.token}`,
+      },
+    };
+
+    await axios.put(
+      `${process.env.API_URL_BACKEND}/products/${id}`,
+      body,
+      config
+    );
     handleClose();
     queryClient.invalidateQueries({ queryKey: ["products"] });
   };

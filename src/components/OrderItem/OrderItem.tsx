@@ -1,11 +1,42 @@
-import { I_Order } from "@/types";
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { E_OrderStatus, I_Order } from "@/types";
+import {
+  Box,
+  Divider,
+  Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
 
 type OrderItemProps = {
   orderData: I_Order;
 };
 
 const OrderItem: React.FC<OrderItemProps> = ({ orderData }) => {
+  const [status, setStatus] = useState(orderData.status.toString());
+  const [isLoadingStatus, setIsLoadingStatus] = useState(false);
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    setIsLoadingStatus(true);
+    setStatus(event.target.value);
+
+    await axios
+      .post(
+        `${process.env.API_URL_BACKEND}/users/orders/admin/update`,
+        { orderId: orderData.id, newStatus: event.target.value },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => response.data);
+
+    setIsLoadingStatus(false);
+  };
   const createdAt = new Date(orderData.createdAt);
   if (isNaN(createdAt.getTime())) {
     throw new Error("Invalid date format for createdAt");
@@ -41,9 +72,22 @@ const OrderItem: React.FC<OrderItemProps> = ({ orderData }) => {
     >
       {/* <Typography fontWeight="bold">Order #{orderData.id}</Typography> */}
       <Typography color="#646464">The order was placed {date}</Typography>
-      <Typography mt={1} color="#646464">
-        A status - <StatusWrapper>{orderData.status}</StatusWrapper>
-      </Typography>
+      <Select
+        disabled={isLoadingStatus}
+        value={status}
+        onChange={handleChange}
+        displayEmpty
+        inputProps={{ "aria-label": "Without label" }}
+        sx={{
+          color: "#09B11B",
+          border: "1px solid #F4F4F4",
+          mt: 1,
+        }}
+      >
+        <MenuItem value={E_OrderStatus.created}>created</MenuItem>
+        <MenuItem value={E_OrderStatus.confirmed}>confirmed</MenuItem>
+        <MenuItem value={E_OrderStatus.declined}>declined</MenuItem>
+      </Select>
 
       <Grid container mt={2} fontWeight="bold">
         <Grid xs={9} item>
@@ -100,20 +144,3 @@ const OrderItem: React.FC<OrderItemProps> = ({ orderData }) => {
 };
 
 export default OrderItem;
-
-const StatusWrapper: React.FC<{ children: React.ReactNode | string }> = ({
-  children,
-}) => {
-  return (
-    <Box
-      component="span"
-      sx={{
-        p: "8px 13px",
-        color: "#09B11B",
-        border: "1px solid #F4F4F4",
-      }}
-    >
-      {children}
-    </Box>
-  );
-};

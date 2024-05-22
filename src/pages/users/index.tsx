@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import AuthGuard from "@/features/AuthGuard";
 import Head from "next/head";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
+import OrderList from "@/components/OrderList/OrderList";
 
 const UsersPage: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ const UsersPage: React.FC = () => {
         <link rel="icon" href="/admin-favicon.svg" />
       </Head>
       <div>
-        <SectionTitle>Users</SectionTitle>
+        <SectionTitle>Users orders</SectionTitle>
+        <OrderList />
       </div>
     </>
   );

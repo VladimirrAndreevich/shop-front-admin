@@ -20,7 +20,7 @@ const AsideMenu: React.FC = () => {
 
   const menuList = [
     { title: "Products", href: "/products" },
-    { title: "Users", href: "/users" },
+    { title: "User orders", href: "/users" },
     {
       title: "Logout",
       clickHandling: () => {

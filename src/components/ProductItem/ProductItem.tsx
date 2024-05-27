@@ -18,7 +18,11 @@ interface I_ProductItemProps {
 }
 
 const deleteItem = async (productId: number) => {
-  await axios.delete(`${process.env.API_URL_BACKEND}/products/${productId}`);
+  await axios.delete(`${process.env.API_URL_BACKEND}/products/${productId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 };
 
 const ProductItem: React.FC<I_ProductItemProps> = ({ data }) => {

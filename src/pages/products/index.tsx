@@ -1,5 +1,8 @@
+import Btn from "@/components/Btn/Btn";
+import CreateNewProduct from "@/components/CreateNewProduct/CreateNewProduct";
 import ProductsList from "@/components/ProductsList/ProductsList";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
+import { Button } from "@mui/material";
 import Head from "next/head";
 
 const ProductsPage: React.FC = () => {
@@ -13,6 +16,7 @@ const ProductsPage: React.FC = () => {
       </Head>
       <div>
         <SectionTitle>Products</SectionTitle>
+        <CreateNewProduct />
         <ProductsList />
       </div>
     </>

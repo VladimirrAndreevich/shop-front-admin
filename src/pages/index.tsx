@@ -26,7 +26,10 @@ export default function HomePage() {
         <link rel="icon" href="/admin-favicon.svg" />
       </Head>
       <main>
-        <MainContainer sx={{ py: 5 }} maxWidth="sm">
+        <MainContainer
+          sx={{ py: 5, minHeight: "calc(100vh - 187px)" }}
+          maxWidth="sm"
+        >
           <Heading>Login</Heading>
           <LoginForm />
         </MainContainer>

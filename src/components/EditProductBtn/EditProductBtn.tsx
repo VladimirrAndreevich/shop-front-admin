@@ -18,6 +18,8 @@ const EditProductBtn: React.FC<EditButtonProps> = ({ dataProduct }) => {
   const [open, setOpen] = React.useState(false);
   const [titleValue, setTitleValue] = React.useState(dataProduct.title);
   const [priceValue, setPriceValue] = React.useState(dataProduct.price);
+  const [priceDiscountedValue, setPriceDiscountedValue] =
+    React.useState(priceDiscounted);
   const queryClient = useQueryClient();
   const userStore = getStoreInstance();
 
@@ -33,6 +35,7 @@ const EditProductBtn: React.FC<EditButtonProps> = ({ dataProduct }) => {
     const body = {
       title: titleValue,
       price: priceValue,
+      priceDiscounted: priceDiscountedValue,
     };
 
     const config = {
@@ -83,6 +86,17 @@ const EditProductBtn: React.FC<EditButtonProps> = ({ dataProduct }) => {
               value={priceValue}
               onChange={(e) => setPriceValue(+e.target.value)}
             />
+            {priceDiscounted && (
+              <TextField
+                id="outlined-basic"
+                label="Price discounted"
+                type="number"
+                variant="outlined"
+                sx={{ mt: 1 }}
+                value={priceDiscountedValue}
+                onChange={(e) => setPriceDiscountedValue(+e.target.value)}
+              />
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
